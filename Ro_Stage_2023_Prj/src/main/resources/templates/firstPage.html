@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+/* Style the body */
+body {
+  font-family: sans-serif;
+  background-color: hsla(89, 43%, 51%, 0.3);
+  /* margin: 10px; */
+ 
+
+}
+
+/* Header/logo Title */
+.header {
+  /* padding: 10px; */
+  display: flex;
+  flex: 10%;
+  height: 100px;
+  width: 50px;
+  /* text-align: center; */
+  
+}
+
+  /* Style the top navigation bar */
+.navbar {
+  display: flex;
+  /*justify-content: space-between mette hei lati opposti*/
+  justify-content: space-between;
+  text-decoration: none;
+
+}
+
+/*di oggi*/
+
+  /*OK*/
+.search{
+    background-color: #f1f1f1;
+    /* overflow: hidden; */
+    font-size: 20px; 
+   
+    background-image: url("../img/searchicon.png");
+    background-position: 10px 12px;
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    border: 1px solid #ddd;
+    }
+
+div li{
+    text-decoration: none;
+}
+   
+    /*OK*/
+ 
+  .navbar-right{
+    cursor: pointer;
+  }
+
+/*OK*/
+  .navbar-right li {
+    display: inline-block;
+  }
+
+/* Change color on hover */
+/*OK*/
+.navbar a:hover {
+  background-color: #ddd;
+}
+
+/*OK*/
+.icon-bar{
+  background-color: #a7a3a3;
+  /* overflow: hidden;  */
+  padding: 12px 24px;
+  border-radius: 10%;
+  /* width: 50%; */
+  /* margin: 0;
+  padding: 0; */
+}
+
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown{
+ position: relative;
+ display: inline-block;
+      } 
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content{
+  display: none; /* nascondono dietro il bottone */
+  position: absolute;
+  background-color: #f1f1f1;
+
+  /* min-width: 160px; */
+  overflow: visible;
+  z-index: 1;
+  padding: 10px 80px 10px 0px;
+  border: 1px solid #ddd;
+  border-radius: 10%;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a{
+  color: black;
+  font-size: medium;
+  padding: 10px 12px;
+  text-decoration: none;
+  display:block;
+}
+
+/* Show the dropdown menu (use JS to add this class to the 
+.dropdown-content container when the user clicks on the dropdown button) */
+.show{
+  display: block;
+}
+/* Column container */
+.row {  
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Create two unequal columns that sits next to each other */
+/* Sidebar/left column */
+
+
+
+/* Style the tab */
+.side {
+  flex: 5%;
+  padding: 20px;
+  float: left;
+  /* border: 1px solid #ccc; */
+  border: 1px solid #ddd;
+  background-color: #f1f1f1;
+  /* width: 30%; */
+
+}
+
+/* Style the buttons inside the tab */
+.side a {
+  display: block;
+  background-color: inherit;
+  color: black;
+  padding: 22px 16px;
+  width: 100%;
+  border: none;
+  outline: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: 17px;
+  text-decoration: none;
+}
+/* Change background color of buttons on hover */
+.side a:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current "tab button" class */
+.side a.active {
+  background-color: #ccc;
+}
+/* Main column */
+.main {
+  flex: 70%;
+
+  padding: 20px;
+}
+
+/* Fake image, just for this example */
+.fakeimg {
+  background-color: #aaa;
+  width: 100%;
+  padding: 20px;
+}
+
+/* Footer */
+.footer {
+  padding: 20px;
+  text-align: center;
+  background: #ddd;
+}
+
+/* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 700px) {
+  .row, .navbar {   
+    flex-direction: column;
+  }
+}
+</style>
+</head>
+<body>
+
+    <div class="header">
+        <img src="../img/rotechnology-logo.webp"  alt="rotechnology-logo" id="logo">
+    </div>
+
+
+
+<!-- Navigation Bar -->
+<div class="navbar">
+    
+    
+        
+</div>
+
+
+<!-- The flexible grid (content) -->
+<div class="row">
+  <div class="side">
+    <div class="tab"> 
+        <a href="">HOME</a>
+        <a href="http://localhost:8081/procedure/pSkiAnaRepAll1">pSkiAnaRepAll</a>
+        <a href="http://localhost:8081/procedure/pSkiAnaRepAll1">pSkiCatRepAll</a>
+      </div>
+  </div>
+  <div class="main">
+  </div>
+</div>
+
+<!-- Footer -->
+<!--  <div class="footer">
+  <h2></h2>
+</div>-->
+
+</body>
+</html>

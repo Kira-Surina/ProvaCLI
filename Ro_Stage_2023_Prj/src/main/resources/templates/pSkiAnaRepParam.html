@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>pSkiAnaRepParam</title>
+</head>
+<body>
+<table>
+<thead>
+
+<tr>
+<th>ID</th>
+<th>Codice</th>
+<th>Categoria</th>
+<th>Subcategoria</th>
+<th>Descrizione</th>
+<th>Stato</th>
+<th>Approvazione</th>
+<th>Utenti</th>
+<th>Percorsi</th>
+
+
+</tr>
+</thead>
+
+<tbody>
+
+<tr th:each="proced : ${procedureParametri}">
+<td th:text=${proced.getId}></td>
+<td th:text=${proced.getCodice}></td>
+<td th:text=${proced.getCategoria}></td>
+<td th:text=${proced.getSubcategoria}></td>
+<td th:text=${proced.getDescrizione}></td>
+<td th:text=${proced.getStato}></td>
+<td th:text=${proced.getApprovazione}></td>
+<td th:text=${proced.getUtenti}></td>
+<td th:text=${proced.getPercorsi}></td>
+
+
+
+</tr>
+
+</tbody>
+</table>
+</body>
+</html>

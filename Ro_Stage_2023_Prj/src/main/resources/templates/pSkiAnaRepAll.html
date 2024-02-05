@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href=>
+
+
+<style>
+body{
+ font-family: sans-serif;
+ background-color: hsla(89, 43%, 51%, 0.3);
+
+}
+
+
+#checkbox{
+font-weight: bolder;
+}
+
+#id{
+
+font-weight: bolder;
+}
+
+#myInput{
+background-image: url("/img/searchicon.png");
+background-position: 10px 12px;
+background-repeat: no-repeat;
+width:25%;
+font-size: 16px;
+padding: 12px 20px 12px 40px;
+border: 1px solid #ddd;
+margin-bottom: 12px;
+
+}
+
+.img_arrow{
+  width: 10px; 
+  height: 10px;
+
+  /* display: inline-block; */
+
+}
+
+/* icon-bar */
+
+#icon_conteiner{
+float: right;
+margin-bottom: 25px;
+
+}
+
+.img_icon_bar{
+/* background-color: rgb(222, 20, 20); */
+  font-size: 72px;
+
+}
+.icon-bar {
+
+  background-color: #a7a3a3;
+  overflow: hidden;
+}
+
+.icon-bar a {
+  float: right;
+  /* width: auto; */
+  /* text-align: justify; */
+  padding: 12px 24px;
+  /* transition: all 0.3s ease; */
+  /* color: white; */
+
+}
+
+.icon-bar a:hover {
+  background-color: #d9d8d8;
+}
+
+
+
+   #myTable {
+     border-collapse: collapse; /* Collapse borders */
+     width: 100%; /* Full-width */
+     border: 1px solid #ddd; /* Add a grey border */
+     font-size: 18px; /* Increase font-size */
+     text-align: center;
+   }
+   
+   #myTable th, #myTable td {
+     text-align: left; /* Left-align text */
+     padding: 12px; /* Add padding */
+     height: 10px;
+     padding: 15px;
+   }
+   
+   #myTable tr, #myTable td {
+     /* Add a bottom border to all table rows */
+     border-bottom: 1px solid #ddd;
+     border: 1px solid #ddd;
+     height: 10px;
+     padding: 15px;
+   }
+   
+   #myTable tr.header, #myTable td:hover {
+     /* Add a grey background color to the table header and on hover */
+     background-color: #f1f1f1;
+   }
+</style>
+
+<title>ViewSkiAnaRep</title>
+</head>
+<body>
+   <div class="header">
+        <img src="../img/rotechnology-logo.webp" width="25%" alt="rotechnology-logo">
+    </div>
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Cercare...">
+
+<table id="myTable">
+<thead>
+
+<tr>
+<!-- <th>ID</th> -->
+<th>
+<input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+</th>
+<th>Codice 
+<img src="../img/arrow-down-solid.svg" alt="" class="img_arrow" onclick="sortTableDownCodice()" > 
+<img src="../img/arrow-up-solid.svg" alt="" class="img_arrow" onclick="sortTableUpCodice()">
+</th>
+<th>Categoria
+<img src="../img/arrow-down-solid.svg" alt="" class="img_arrow" onclick="sortTableDownCategoria()" > 
+<img src="../img/arrow-up-solid.svg" alt="" class="img_arrow" onclick="sortTableUpCategoria()">
+</th>
+<th>Subcategoria
+<img src="../img/arrow-down-solid.svg" alt="" class="img_arrow" onclick="sortTableDownSubcategoria()" > 
+<img src="../img/arrow-up-solid.svg" alt="" class="img_arrow" onclick="sortTableUpSubcategoria()">
+</th>
+<th>Descrizione
+<img src="../img/arrow-down-solid.svg" alt="" class="img_arrow" onclick="sortTableDownDescrizione()" > 
+<img src="../img/arrow-up-solid.svg" alt="" class="img_arrow" onclick="sortTableUpDescrizione()"></th>
+<th>Stato
+<img src="../img/arrow-down-solid.svg" alt="" class="img_arrow" onclick="sortTableDownStato()" > 
+<img src="../img/arrow-up-solid.svg" alt="" class="img_arrow" onclick="sortTableUpStato()">
+</th>
+<th>Approvazione
+<img src="../img/arrow-down-solid.svg" alt="" class="img_arrow" onclick="sortTableDownApprovazione()" > 
+<img src="../img/arrow-up-solid.svg" alt="" class="img_arrow" onclick="sortTableUpApprovazione()">
+</th>
+<th>Utenti
+<img src="../img/arrow-down-solid.svg" alt="" class="img_arrow" onclick="sortTableDownUtenti()" > 
+<img src="../img/arrow-up-solid.svg" alt="" class="img_arrow" onclick="sortTableUpUtenti()">
+</th>
+<th>Percorsi
+<img src="../img/arrow-down-solid.svg" alt="" class="img_arrow" onclick="sortTableDownPercorsi()" > 
+<img src="../img/arrow-up-solid.svg" alt="" class="img_arrow" onclick="sortTableUpPercorsi()">
+</th>
+
+
+</tr>
+</thead>
+
+<tbody>
+
+<tr th:each="p : ${procedure}">
+<!-- <td th:text="${p.getId}"></td> -->
+<td>
+<input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+</td>
+ 
+<td th:text="${p.getCodice}"></td>
+<td th:text="${p.getCategoria}"></td>
+<td th:text="${p.getSubcategoria}"></td>
+<td th:text="${p.getDescrizione}"></td>
+<td th:text="${p.getStato}"></td>
+<td th:text="${p.getApprovazione}"></td>
+<td th:text="${p.getUtenti}"></td>
+<td th:text="${p.getPercorsi}"></td>
+
+
+
+
+</tr>
+
+</tbody>
+</table>
+
+
+<div><i class='fas fa-sort-alpha-down'></i></div>
+<script>
+
+/**  sortTableDownCodice       */
+ 
+ function sortTableDownCodice() {
+    var table = document.getElementById("myTable");
+    var rows = table.rows;
+    var switching = true;
+    var i, x, y;
+ /* Make a loop that will continue until
+  no switching has been done: */
+
+  while(switching){
+// Start by saying: no switching is done:
+    switching = false;
+
+        /* Loop through all table rows (except the
+    first, which contains table headers): */
+
+    for(i = 1; i < (rows.length - 1); i++){
+        console.log(table[i]);
+// Start by saying there should be no switching:
+  shouldSwitch = false;
+
+      /* Get the two elements you want to compare,
+      one from current row and one from the next: */
+
+      x = rows[i].getElementsByTagName("td")[1];
+      y = rows[i+1].getElementsByTagName("td")[1];
+
+// Check if the two rows should switch place:
+if(x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()){
+    // If so, mark as a switch and break the loop:
+    shouldSwitch = true;
+    break;
+}
+    }
+
+    if(shouldSwitch){
+              /* If a switch has been marked, make the switch
+      and mark that a switch has been done: */
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+    }
+  }
+    
+}
+
+/**  sortTableUpCodice       */
+
+function sortTableUpCodice() {
+    var table = document.getElementById("myTable");
+    var rows = table.rows;
+    var switching = true;
+    var i, x, y;
+ /* Make a loop that will continue until
+  no switching has been done: */
+
+  while(switching){
+// Start by saying: no switching is done:
+    switching = false;
+
+        /* Loop through all table rows (except the
+    first, which contains table headers): */
+
+    for(i = 1; i < (rows.length - 1); i++){
+        console.log(table[i]);
+// Start by saying there should be no switching:
+  shouldSwitch = false;
+
+      /* Get the two elements you want to compare,
+      one from current row and one from the next: */
+
+      x = rows[i].getElementsByTagName("td")[1];
+      y = rows[i+1].getElementsByTagName("td")[1];
+
+// Check if the two rows should switch place:
+if(x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()){
+    // If so, mark as a switch and break the loop:
+    shouldSwitch = true;
+    break;
+}
+    }
+
+    if(shouldSwitch){
+              /* If a switch has been marked, make the switch
+      and mark that a switch has been done: */
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+
+      switching = true;
+    }
+  }
+    
+}
+
+/**  sortTableDownCategoria       */
+
+function sortTableDownCategoria() {
+   var table = document.getElementById("myTable");
+   var rows = table.rows;
+   var switching = true;
+   var i, x, y;
+/* Make a loop that will continue until
+ no switching has been done: */
+
+ while(switching){
+//Start by saying: no switching is done:
+   switching = false;
+
+       /* Loop through all table rows (except the
+   first, which contains table headers): */
+
+   for(i = 1; i < (rows.length - 1); i++){
+       console.log(table[i]);
+//Start by saying there should be no switching:
+ shouldSwitch = false;
+
+     /* Get the two elements you want to compare,
+     one from current row and one from the next: */
+
+     x = rows[i].getElementsByTagName("td")[2];
+     y = rows[i+1].getElementsByTagName("td")[2];
+
+//Check if the two rows should switch place:
+if(x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()){
+   // If so, mark as a switch and break the loop:
+   shouldSwitch = true;
+   break;
+}
+   }
+
+   if(shouldSwitch){
+             /* If a switch has been marked, make the switch
+     and mark that a switch has been done: */
+     rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+     switching = true;
+   }
+ }
+   
+}
+
+/**  sortTableUpCategoria       */
+
+function sortTableUpCategoria() {
+   var table = document.getElementById("myTable");
+   var rows = table.rows;
+   var switching = true;
+   var i, x, y;
+/* Make a loop that will continue until
+ no switching has been done: */
+
+ while(switching){
+//Start by saying: no switching is done:
+   switching = false;
+
+       /* Loop through all table rows (except the
+   first, which contains table headers): */
+
+   for(i = 1; i < (rows.length - 1); i++){
+       console.log(table[i]);
+//Start by saying there should be no switching:
+ shouldSwitch = false;
+
+     /* Get the two elements you want to compare,
+     one from current row and one from the next: */
+
+     x = rows[i].getElementsByTagName("td")[2];
+     y = rows[i+1].getElementsByTagName("td")[2];
+
+//Check if the two rows should switch place:
+if(x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()){
+   // If so, mark as a switch and break the loop:
+   shouldSwitch = true;
+   break;
+}
+   }
+
+   if(shouldSwitch){
+             /* If a switch has been marked, make the switch
+     and mark that a switch has been done: */
+     rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+
+     switching = true;
+   }
+ }
+   
+}
+
+/**  sortTableDownSubcategoria       */
+
+function sortTableDownSubcategoria() {
+   var table = document.getElementById("myTable");
+   var rows = table.rows;
+   var switching = true;
+   var i, x, y;
+/* Make a loop that will continue until
+ no switching has been done: */
+
+ while(switching){
+//Start by saying: no switching is done:
+   switching = false;
+
+       /* Loop through all table rows (except the
+   first, which contains table headers): */
+
+   for(i = 1; i < (rows.length - 1); i++){
+       console.log(table[i]);
+//Start by saying there should be no switching:
+ shouldSwitch = false;
+
+     /* Get the two elements you want to compare,
+     one from current row and one from the next: */
+
+     x = rows[i].getElementsByTagName("td")[3];
+     y = rows[i+1].getElementsByTagName("td")[3];
+
+//Check if the two rows should switch place:
+if(x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()){
+   // If so, mark as a switch and break the loop:
+   shouldSwitch = true;
+   break;
+}
+   }
+
+   if(shouldSwitch){
+             /* If a switch has been marked, make the switch
+     and mark that a switch has been done: */
+     rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+     switching = true;
+   }
+ }
+   
+}
+
+/**  sortTableUpSubcategoria      */
+
+function sortTableUpSubcategoria() {
+   var table = document.getElementById("myTable");
+   var rows = table.rows;
+   var switching = true;
+   var i, x, y;
+/* Make a loop that will continue until
+ no switching has been done: */
+
+ while(switching){
+//Start by saying: no switching is done:
+   switching = false;
+
+       /* Loop through all table rows (except the
+   first, which contains table headers): */
+
+   for(i = 1; i < (rows.length - 1); i++){
+       console.log(table[i]);
+//Start by saying there should be no switching:
+ shouldSwitch = false;
+
+     /* Get the two elements you want to compare,
+     one from current row and one from the next: */
+
+     x = rows[i].getElementsByTagName("td")[3];
+     y = rows[i+1].getElementsByTagName("td")[3];
+
+//Check if the two rows should switch place:
+if(x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()){
+   // If so, mark as a switch and break the loop:
+   shouldSwitch = true;
+   break;
+}
+   }
+
+   if(shouldSwitch){
+             /* If a switch has been marked, make the switch
+     and mark that a switch has been done: */
+     rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+
+     switching = true;
+   }
+ }
+   
+}
+
+
+/**  sortTableDownDescrizione       */
+
+function sortTableDownDescrizione() {
+   var table = document.getElementById("myTable");
+   var rows = table.rows;
+   var switching = true;
+   var i, x, y;
+/* Make a loop that will continue until
+ no switching has been done: */
+
+ while(switching){
+//Start by saying: no switching is done:
+   switching = false;
+
+       /* Loop through all table rows (except the
+   first, which contains table headers): */
+
+   for(i = 1; i < (rows.length - 1); i++){
+       console.log(table[i]);
+//Start by saying there should be no switching:
+ shouldSwitch = false;
+
+     /* Get the two elements you want to compare,
+     one from current row and one from the next: */
+
+     x = rows[i].getElementsByTagName("td")[4];
+     y = rows[i+1].getElementsByTagName("td")[4];
+
+//Check if the two rows should switch place:
+if(x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()){
+   // If so, mark as a switch and break the loop:
+   shouldSwitch = true;
+   break;
+}
+   }
+
+   if(shouldSwitch){
+             /* If a switch has been marked, make the switch
+     and mark that a switch has been done: */
+     rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+     switching = true;
+   }
+ }
+   
+}
+
+/**  sortTableUpDescrizione      */
+
+function sortTableUpDescrizione() {
+   var table = document.getElementById("myTable");
+   var rows = table.rows;
+   var switching = true;
+   var i, x, y;
+/* Make a loop that will continue until
+ no switching has been done: */
+
+ while(switching){
+//Start by saying: no switching is done:
+   switching = false;
+
+       /* Loop through all table rows (except the
+   first, which contains table headers): */
+
+   for(i = 1; i < (rows.length - 1); i++){
+       console.log(table[i]);
+//Start by saying there should be no switching:
+ shouldSwitch = false;
+
+     /* Get the two elements you want to compare,
+     one from current row and one from the next: */
+
+     x = rows[i].getElementsByTagName("td")[4];
+     y = rows[i+1].getElementsByTagName("td")[4];
+
+//Check if the two rows should switch place:
+if(x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()){
+   // If so, mark as a switch and break the loop:
+   shouldSwitch = true;
+   break;
+}
+   }
+
+   if(shouldSwitch){
+             /* If a switch has been marked, make the switch
+     and mark that a switch has been done: */
+     rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+
+     switching = true;
+   }
+ }
+   
+}
+
+
+/**  sortTableDownStato       */
+
+function sortTableDownStato() {
+   var table = document.getElementById("myTable");
+   var rows = table.rows;
+   var switching = true;
+   var i, x, y;
+/* Make a loop that will continue until
+ no switching has been done: */
+
+ while(switching){
+//Start by saying: no switching is done:
+   switching = false;
+
+       /* Loop through all table rows (except the
+   first, which contains table headers): */
+
+   for(i = 1; i < (rows.length - 1); i++){
+       console.log(table[i]);
+//Start by saying there should be no switching:
+ shouldSwitch = false;
+
+     /* Get the two elements you want to compare,
+     one from current row and one from the next: */
+
+     x = rows[i].getElementsByTagName("td")[5];
+     y = rows[i+1].getElementsByTagName("td")[5];
+
+//Check if the two rows should switch place:
+if(x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()){
+   // If so, mark as a switch and break the loop:
+   shouldSwitch = true;
+   break;
+}
+   }
+
+   if(shouldSwitch){
+             /* If a switch has been marked, make the switch
+     and mark that a switch has been done: */
+     rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+     switching = true;
+   }
+ }
+   
+}
+
+/**  sortTableUpStato     */
+
+function sortTableUpStato() {
+   var table = document.getElementById("myTable");
+   var rows = table.rows;
+   var switching = true;
+   var i, x, y;
+/* Make a loop that will continue until
+ no switching has been done: */
+
+ while(switching){
+//Start by saying: no switching is done:
+   switching = false;
+
+       /* Loop through all table rows (except the
+   first, which contains table headers): */
+
+   for(i = 1; i < (rows.length - 1); i++){
+       console.log(table[i]);
+//Start by saying there should be no switching:
+ shouldSwitch = false;
+
+     /* Get the two elements you want to compare,
+     one from current row and one from the next: */
+
+     x = rows[i].getElementsByTagName("td")[5];
+     y = rows[i+1].getElementsByTagName("td")[5];
+
+//Check if the two rows should switch place:
+if(x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()){
+   // If so, mark as a switch and break the loop:
+   shouldSwitch = true;
+   break;
+}
+   }
+
+   if(shouldSwitch){
+             /* If a switch has been marked, make the switch
+     and mark that a switch has been done: */
+     rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+
+     switching = true;
+   }
+ }
+   
+}
+
+
+
+/**  sortTableDownApprovazione       */
+
+function sortTableDownApprovazione() {
+   var table = document.getElementById("myTable");
+   var rows = table.rows;
+   var switching = true;
+   var i, x, y;
+/* Make a loop that will continue until
+ no switching has been done: */
+
+ while(switching){
+//Start by saying: no switching is done:
+   switching = false;
+
+       /* Loop through all table rows (except the
+   first, which contains table headers): */
+
+   for(i = 1; i < (rows.length - 1); i++){
+       console.log(table[i]);
+//Start by saying there should be no switching:
+ shouldSwitch = false;
+
+     /* Get the two elements you want to compare,
+     one from current row and one from the next: */
+
+     x = rows[i].getElementsByTagName("td")[6];
+     y = rows[i+1].getElementsByTagName("td")[6];
+
+//Check if the two rows should switch place:
+if(x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()){
+   // If so, mark as a switch and break the loop:
+   shouldSwitch = true;
+   break;
+}
+   }
+
+   if(shouldSwitch){
+             /* If a switch has been marked, make the switch
+     and mark that a switch has been done: */
+     rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+     switching = true;
+   }
+ }
+   
+}
+
+/**  sortTableUpApprovazione     */
+
+function sortTableUpApprovazione() {
+   var table = document.getElementById("myTable");
+   var rows = table.rows;
+   var switching = true;
+   var i, x, y;
+/* Make a loop that will continue until
+ no switching has been done: */
+
+ while(switching){
+//Start by saying: no switching is done:
+   switching = false;
+
+       /* Loop through all table rows (except the
+   first, which contains table headers): */
+
+   for(i = 1; i < (rows.length - 1); i++){
+       console.log(table[i]);
+//Start by saying there should be no switching:
+ shouldSwitch = false;
+
+     /* Get the two elements you want to compare,
+     one from current row and one from the next: */
+
+     x = rows[i].getElementsByTagName("td")[6];
+     y = rows[i+1].getElementsByTagName("td")[6];
+
+//Check if the two rows should switch place:
+if(x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()){
+   // If so, mark as a switch and break the loop:
+   shouldSwitch = true;
+   break;
+}
+   }
+
+   if(shouldSwitch){
+             /* If a switch has been marked, make the switch
+     and mark that a switch has been done: */
+     rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+
+     switching = true;
+   }
+ }
+   
+}
+
+
+
+/**  sortTableDownUtenti       */
+
+function sortTableDownUtenti() {
+   var table = document.getElementById("myTable");
+   var rows = table.rows;
+   var switching = true;
+   var i, x, y;
+/* Make a loop that will continue until
+ no switching has been done: */
+
+ while(switching){
+//Start by saying: no switching is done:
+   switching = false;
+
+       /* Loop through all table rows (except the
+   first, which contains table headers): */
+
+   for(i = 1; i < (rows.length - 1); i++){
+       console.log(table[i]);
+//Start by saying there should be no switching:
+ shouldSwitch = false;
+
+     /* Get the two elements you want to compare,
+     one from current row and one from the next: */
+
+     x = rows[i].getElementsByTagName("td")[7];
+     y = rows[i+1].getElementsByTagName("td")[7];
+
+//Check if the two rows should switch place:
+if(x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()){
+   // If so, mark as a switch and break the loop:
+   shouldSwitch = true;
+   break;
+}
+   }
+
+   if(shouldSwitch){
+             /* If a switch has been marked, make the switch
+     and mark that a switch has been done: */
+     rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+     switching = true;
+   }
+ }
+   
+}
+
+/**  sortTableUpUtenti     */
+
+function sortTableUpUtenti() {
+   var table = document.getElementById("myTable");
+   var rows = table.rows;
+   var switching = true;
+   var i, x, y;
+/* Make a loop that will continue until
+ no switching has been done: */
+
+ while(switching){
+//Start by saying: no switching is done:
+   switching = false;
+
+       /* Loop through all table rows (except the
+   first, which contains table headers): */
+
+   for(i = 1; i < (rows.length - 1); i++){
+       console.log(table[i]);
+//Start by saying there should be no switching:
+ shouldSwitch = false;
+
+     /* Get the two elements you want to compare,
+     one from current row and one from the next: */
+
+     x = rows[i].getElementsByTagName("td")[7];
+     y = rows[i+1].getElementsByTagName("td")[7];
+
+//Check if the two rows should switch place:
+if(x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()){
+   // If so, mark as a switch and break the loop:
+   shouldSwitch = true;
+   break;
+}
+   }
+
+   if(shouldSwitch){
+             /* If a switch has been marked, make the switch
+     and mark that a switch has been done: */
+     rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+
+     switching = true;
+   }
+ }
+   
+}
+
+
+
+/**  sortTableDownPercorsi       */
+
+function sortTableDownPercorsi() {
+   var table = document.getElementById("myTable");
+   var rows = table.rows;
+   var switching = true;
+   var i, x, y;
+/* Make a loop that will continue until
+ no switching has been done: */
+
+ while(switching){
+//Start by saying: no switching is done:
+   switching = false;
+
+       /* Loop through all table rows (except the
+   first, which contains table headers): */
+
+   for(i = 1; i < (rows.length - 1); i++){
+       console.log(table[i]);
+//Start by saying there should be no switching:
+ shouldSwitch = false;
+
+     /* Get the two elements you want to compare,
+     one from current row and one from the next: */
+
+     x = rows[i].getElementsByTagName("td")[8];
+     y = rows[i+1].getElementsByTagName("td")[8];
+
+//Check if the two rows should switch place:
+if(x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()){
+   // If so, mark as a switch and break the loop:
+   shouldSwitch = true;
+   break;
+}
+   }
+
+   if(shouldSwitch){
+             /* If a switch has been marked, make the switch
+     and mark that a switch has been done: */
+     rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+     switching = true;
+   }
+ }
+   
+}
+
+/**  sortTableUpPercorsi     */
+
+function sortTableUpPercorsi() {
+   var table = document.getElementById("myTable");
+   var rows = table.rows;
+   var switching = true;
+   var i, x, y;
+/* Make a loop that will continue until
+ no switching has been done: */
+
+ while(switching){
+//Start by saying: no switching is done:
+   switching = false;
+
+       /* Loop through all table rows (except the
+   first, which contains table headers): */
+
+   for(i = 1; i < (rows.length - 1); i++){
+       console.log(table[i]);
+//Start by saying there should be no switching:
+ shouldSwitch = false;
+
+     /* Get the two elements you want to compare,
+     one from current row and one from the next: */
+
+     x = rows[i].getElementsByTagName("td")[8];
+     y = rows[i+1].getElementsByTagName("td")[8];
+
+//Check if the two rows should switch place:
+if(x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()){
+   // If so, mark as a switch and break the loop:
+   shouldSwitch = true;
+   break;
+}
+   }
+
+   if(shouldSwitch){
+             /* If a switch has been marked, make the switch
+     and mark that a switch has been done: */
+     rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+
+     switching = true;
+   }
+ }
+   
+}
+
+</script>
+</body>
+</html>
